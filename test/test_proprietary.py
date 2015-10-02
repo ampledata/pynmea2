@@ -149,3 +149,38 @@ def test_create():
         '%d' % 0])
     data = sentence.render(checksum=True, dollar=True, newline=False)
     assert data == '$PSRF100,1,9600,7,1,0*02'
+
+
+def test_safecast_bnrdd():
+    #data = '$PBNRDD,2359,2014-12-14T09:46:47Z,32,2,2398,A,3745.6045,N,12229.8638,W,50.40,A,8,87*5B'
+    #data2 = '$PBNRDD,0210,2013-04-11T05:40:51Z,35,0,736,A,3516.1459,N,13614.9700,E,73.50,A,125,0*64'
+    #msg = pynmea2.parse(data)
+    #print msg
+    data = '$PBNRDD,2359,2015-10-02T04:55:21Z,41,3,2303,A,3745.6040,N,12229.8515,W,19.10,A,8,121*6B'
+    #msg = pynmea2.parse(data)
+    #print msg
+    #print msg.data
+
+    sentence = pynmea2.safecast.BNRDD(
+        'BNRDD', [
+            '',
+            '2359',
+            '2015-10-02T04:55:21Z',
+            '41',
+            '3',
+            '2303',
+            'A',
+            '3745.6040',
+            'N',
+            '12229.8515',
+            'W',
+            '19.10',
+            'A',
+            '8'
+    ])
+    data = sentence.render(checksum=True, dollar=True, newline=False)
+    print data
+    msg = pynmea2.parse(data)
+    print msg
+    print msg.data
+    #assert type(msg) == pynmea2.safecast.BNRDD
